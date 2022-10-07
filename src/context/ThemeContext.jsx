@@ -9,10 +9,10 @@ const getInitialTheme = () => {
 
         const userMedia = window.matchMedia('(prefers-color-scheme: dark)');
         if(userMedia.matches){
-            return 'dark'
+            return 'dark';
         }
-        return 'light'
     }
+    return 'light';
 }
 
 export const ThemeContext = createContext();
@@ -27,14 +27,14 @@ export const ThemeProvider = ({initialTheme, children}) => {
         root.classList.remove(isDark ? 'light' : 'dark');
         root.classList.add(theme);
 
-        localStorage.setItem('color-theme', theme)
+        localStorage.setItem('color-theme', theme);
     }
     if(initialTheme){
-        rawSetTheme(initialTheme);
+        rawSetTheme(initialTheme)
     }
 
     useEffect(() => {
-        rawSetTheme(theme)
+        rawSetTheme(theme);
     }, [theme])
 
     return (
