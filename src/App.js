@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import { ThemeProvider } from './context/ThemeContext';
 import Home from './routes/Home';
 import Signin from './routes/SignIn';
-import Signup from './routes/Signup';
+import Signup from './routes/SignUp';
 import Account from './routes/Account';
 import axios from 'axios';
 import CoinPage from './routes/CoinPage';
