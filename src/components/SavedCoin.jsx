@@ -25,11 +25,11 @@ const SavedCoin = () => {
     } catch (e) {
       console.log(e.message);
     }
-  };
+  }
 
   return (
     <div>
-      {coins?.length === 0 ? (
+      {coins?.length === 0 || coins === "undefined" ? (
         <p>
           You don't have any coins saved. Please save a coin to add it to your
           watch list. <Link to='/'>Click here to search coins.</Link>

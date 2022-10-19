@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { AiFillLock, AiOutlineMail } from 'react-icons/ai';
+import { FaGoogle } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
+import { signInWithGoogle } from '../firebase';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +17,20 @@ const Signup = () => {
     setError('')
     try {
       await signUp(email, password)
+      navigate('/account')
+    } catch (e) {
+      setError(e.message)
+      if (e.message === "Assignment to constant variable.") {
+        setError("Email already in use")
+      }
+      console.log(error, "-test");
+    }
+  }
+  const handleGoogleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+    try {
+      await signInWithGoogle();
       navigate('/account')
     } catch (e) {
       setError(e.message)
@@ -58,6 +74,15 @@ const Signup = () => {
           <button className='w-full my-2 p-3 bg-button text-btnText rounded-2xl shadow-xl'>
             Sign up
           </button>
+          <p className='my-2 text-center'>
+            or
+          </p>
+          <div className='mb-4 text-center'>
+            <button className="flex items-center justify-center w-full p-4 bg-button text-btnText font-[500] rounded-2xl" onClick={handleGoogleSubmit}>
+              <FaGoogle style={{ marginRight: "10px" }} />
+              Sign In With Google
+            </button>
+          </div>
           {error && <p className='text-red-700'>Error: {error}</p>}
         </form>
         <p className='my-4'>

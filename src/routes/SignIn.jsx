@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { AiFillLock, AiOutlineMail } from 'react-icons/ai';
+import { FaGoogle } from "react-icons/fa"
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn, UserAuth } from '../context/AuthContext';
-
-import GoogleButton from 'react-google-button'
 import { signInWithGoogle } from '../firebase';
 
 const Signin = () => {
@@ -25,6 +24,17 @@ const Signin = () => {
         alert("Your account is temporarily blocked, please wait")
         setError("Account temporarily blocked")
       }
+    }
+  };
+  const handleGoogleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      await signInWithGoogle();
+      navigate('/account')
+    } catch (e) {
+      setError(e.message);
+      console.log(e);
     }
   };
 
@@ -66,15 +76,21 @@ const Signin = () => {
           </button>
           {error && <p className='text-red-700'>Error: {error/*.slice(22/*, error.length - 2)*/}</p>}
         </form>
+        <p className='my-2 text-center'>
+          or
+        </p>
+        <div className='mb-4 text-center'>
+          <button className="flex items-center justify-center w-full p-4 bg-button text-btnText font-[500] rounded-2xl" onClick={handleGoogleSubmit}>
+            <FaGoogle style={{marginRight: "10px"}} />
+            Sign In With Google
+          </button>
+        </div>
         <p className='my-4'>
           Don't have an account?{' '}
           <Link to='/signup' className='text-accent'>
             Sign up
           </Link>
         </p>
-        <div className='mb-4'>
-          <GoogleButton onClick={signInWithGoogle}/>
-        </div>
       </div>
     </div>
   );
