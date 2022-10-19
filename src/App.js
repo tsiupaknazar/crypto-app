@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { ThemeProvider } from './context/ThemeContext';
 import Home from './routes/Home';
-import Signin from './routes/Signin';
+import Signin from './routes/SignIn';
 import Signup from './routes/Signup';
 import Account from './routes/Account';
 import axios from 'axios';
