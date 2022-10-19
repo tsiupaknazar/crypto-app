@@ -4,7 +4,7 @@ Technologies: react, firebase, react-router-dom, axios, react-icons
 
 # Features:
 - Light/black theme and save current theme
-- Authentification
+- Authentification(auth with google, reset password)
 - Store data to firebase
 - Coin info on a separate page
 - Save coin to watchlist
