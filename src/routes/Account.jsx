@@ -44,7 +44,7 @@ const Account = () => {
       </div>
     );
   } else {
-    return <Navigate to='/signin' />;
+    navigate("/signin");
   }
 };
 

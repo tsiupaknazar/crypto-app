@@ -2,7 +2,6 @@ import React from 'react';
 import { AiOutlineInstagram } from 'react-icons/ai';
 import {
   FaFacebookF,
-  FaGit,
   FaGithub,
   FaTiktok,
   FaTwitter,
