@@ -10,17 +10,18 @@ import axios from 'axios';
 import CoinPage from './routes/CoinPage';
 import Footer from './components/Footer';
 import { AuthContextProvider } from './context/AuthContext';
+import NotFoundPage from './routes/NotFoundPage';
+import ResetPassword from './routes/ResetPassword';
 
 function App() {
   const [coins, setCoins] = useState([]);
 
   const url =
-    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=true';
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true';
 
   useEffect(() => {
     axios.get(url).then((response) => {
       setCoins(response.data);
-      // console.log(response.data)
     });
   }, [url]);
 
@@ -36,6 +37,8 @@ function App() {
           <Route path='/coin/:coinId' element={<CoinPage />}>
             <Route path=':coinId' />
           </Route>
+          <Route path='/reset-password' element={<ResetPassword />} />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </AuthContextProvider>

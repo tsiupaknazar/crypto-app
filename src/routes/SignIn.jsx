@@ -3,6 +3,9 @@ import { AiFillLock, AiOutlineMail } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn, UserAuth } from '../context/AuthContext';
 
+import GoogleButton from 'react-google-button'
+import { signInWithGoogle } from '../firebase';
+
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +21,10 @@ const Signin = () => {
       navigate('/account')
     } catch (e) {
       setError(e.message);
-      console.log(e.message);
+      if (e.message === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).") {
+        alert("Your account is temporarily blocked, please wait")
+        setError("Account temporarily blocked")
+      }
     }
   };
 
@@ -34,17 +40,23 @@ const Signin = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className='w-full p-2 bg-primary border border-input rounded-2xl'
                 type='email'
+                required
               />
               <AiOutlineMail className='absolute right-2 top-3 text-gray-400' />
             </div>
           </div>
           <div className='my-4'>
-            <label>Password</label>
+            <div className='flex items-center justify-between'>
+              <label>Password</label>
+              <Link to="/reset-password" className='text-accent'>Forgot password?</Link>
+            </div>
             <div className='my-2 w-full relative rounded-2xl shadow-xl'>
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 className='w-full p-2 bg-primary border border-input rounded-2xl'
                 type='password'
+                title="Password must contain: Minimum 8 characters at least 1 Alphabet and 1 Number"
+                required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
               />
               <AiFillLock className='absolute right-2 top-3 text-gray-400' />
             </div>
@@ -52,6 +64,7 @@ const Signin = () => {
           <button className='w-full my-2 p-3 bg-button text-btnText rounded-2xl shadow-xl'>
             Sign in
           </button>
+          {error && <p className='text-red-700'>Error: {error/*.slice(22/*, error.length - 2)*/}</p>}
         </form>
         <p className='my-4'>
           Don't have an account?{' '}
@@ -59,6 +72,9 @@ const Signin = () => {
             Sign up
           </Link>
         </p>
+        <div className='mb-4'>
+          <GoogleButton onClick={signInWithGoogle}/>
+        </div>
       </div>
     </div>
   );

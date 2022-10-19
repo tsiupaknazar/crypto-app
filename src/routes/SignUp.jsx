@@ -14,11 +14,14 @@ const Signup = () => {
     e.preventDefault()
     setError('')
     try {
-      await signUp(email,password)
+      await signUp(email, password)
       navigate('/account')
     } catch (e) {
       setError(e.message)
-      console.log(e.message)
+      if (e.message === "Assignment to constant variable.") {
+        setError("Email already in use")
+      }
+      console.log(error, "-test");
     }
   }
 
@@ -26,7 +29,6 @@ const Signup = () => {
     <div>
       <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20'>
         <h1 className='text-2xl font-bold'>Sign Up</h1>
-        {error ? <p className='bg-red-300 p-3 my-2'>{error}</p> : null}
         <form onSubmit={handleSubmit}>
           <div className='my-4'>
             <label>Email</label>
@@ -35,6 +37,7 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className='w-full p-2 bg-primary border border-input rounded-2xl'
                 type='email'
+                required
               />
               <AiOutlineMail className='absolute right-2 top-3 text-gray-400' />
             </div>
@@ -46,6 +49,8 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 className='w-full p-2 bg-primary border border-input rounded-2xl'
                 type='password'
+                title="Password must contain: Minimum 8 characters at least 1 Alphabet and 1 Number"
+                required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
               />
               <AiFillLock className='absolute right-2 top-3 text-gray-400' />
             </div>
@@ -53,6 +58,7 @@ const Signup = () => {
           <button className='w-full my-2 p-3 bg-button text-btnText rounded-2xl shadow-xl'>
             Sign up
           </button>
+          {error && <p className='text-red-700'>Error: {error}</p>}
         </form>
         <p className='my-4'>
           Already have an account?{' '}

@@ -5,11 +5,9 @@ const Trending = () => {
   const [trending, setTrending] = useState([]);
 
   const url = 'https://api.coingecko.com/api/v3/search/trending';
-
   useEffect(() => {
     axios.get(url).then((response) => {
       setTrending(response.data.coins);
-      //   console.log(response.data.coins)
     });
   }, []);
 
@@ -37,7 +35,7 @@ const Trending = () => {
                   src='https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579'
                   alt='/'
                 />
-                <p>{coin.item.price_btc.toFixed(7)}</p>
+                <p>{Number(coin.item.price_btc).toFixed(7)}</p>
               </div>
             </div>
           </div>
