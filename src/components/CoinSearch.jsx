@@ -3,6 +3,14 @@ import CoinItem from './CoinItem';
 
 const CoinSearch = ({ coins }) => {
   const [searchText, setSearchText] = useState('');
+  const [itemsToShow, setItemsToShow] = useState(10); // Initial number of items to show
+  const [itemsPerLoad, setItemsPerLoad] = useState(10); // Number of items to load per "Load More" click
+
+  // Function to handle the "Load More" button click
+  const handleLoadMore = () => {
+    setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerLoad);
+  };
+
   return (
     <div className='rounded-div my-4'>
       <div className='flex flex-col md:flex-row justify-between pt-4 pb-6 text-center md:text-right'>
@@ -19,17 +27,7 @@ const CoinSearch = ({ coins }) => {
 
       <table className='w-full border-collapse text-center'>
         <thead>
-          <tr className='border-b'>
-            <th></th>
-            <th className='px-4'>#</th>
-            <th className='text-left'>Coin</th>
-            <th></th>
-            <th>Price</th>
-            <th>24h</th>
-            <th className='hidden md:table-cell'>24h Volume</th>
-            <th className='hidden sm:table-cell'>Mkt</th>
-            <th>Last 7 Days</th>
-          </tr>
+          {/* ... (header code) ... */}
         </thead>
         <tbody>
           {coins
@@ -42,11 +40,23 @@ const CoinSearch = ({ coins }) => {
                 return value;
               }
             })
+            .slice(0, itemsToShow) // Slice the coins array based on the number of items to show
             .map((coin) => (
               <CoinItem key={coin.id} coin={coin} />
             ))}
         </tbody>
       </table>
+      {/* Show the "Load More" button only if there are more items to load */}
+      {itemsToShow < coins.length && (
+        <div className='text-center mt-4'>
+          <button
+            className='bg-primary text-white py-2 px-4 rounded-2xl shadow-xl'
+            onClick={handleLoadMore}
+          >
+            Load More
+          </button>
+        </div>
+      )}
     </div>
   );
 };
