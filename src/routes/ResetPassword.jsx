@@ -47,7 +47,7 @@ const ResetPassword = () => {
                     >
                         Send email
                     </button>
-                    {success && <p className='text-red-700'>{success}</p>}
+                    {success && <p className='text-green-500'>{success}</p>}
                     {error && <p className='text-red-700'>{error}</p>}
                 </form>
                 {/*<p className='my-4'>

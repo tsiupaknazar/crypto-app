@@ -48,7 +48,7 @@ const CoinSearch = ({ coins }) => {
       </table>
       {/* Show the "Load More" button only if there are more items to load */}
       {itemsToShow < coins.length && (
-        <div className='text-center mt-4'>
+        <div className='text-center p-4'>
           <button
             className='bg-primary text-white py-2 px-4 rounded-2xl shadow-xl'
             onClick={handleLoadMore}

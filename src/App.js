@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import axios from 'axios';
+import { CirclesWithBar } from 'react-loader-spinner';
+
 import Navbar from './components/Navbar';
+
 import { ThemeProvider } from './context/ThemeContext';
+import { AuthContextProvider } from './context/AuthContext';
+
 import Home from './routes/Home';
 import Signin from './routes/SignIn';
 import Signup from './routes/SignUp';
 import Account from './routes/Account';
-import axios from 'axios';
 import CoinPage from './routes/CoinPage';
-import Footer from './components/Footer';
-import { AuthContextProvider } from './context/AuthContext';
 import NotFoundPage from './routes/NotFoundPage';
 import ResetPassword from './routes/ResetPassword';
-import { CirclesWithBar } from 'react-loader-spinner';
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -52,7 +54,7 @@ function App() {
               <Route path='/reset-password' element={<ResetPassword />} />
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
-            <Footer />
+            {/* <Footer /> */}
           </>
         )
           :
