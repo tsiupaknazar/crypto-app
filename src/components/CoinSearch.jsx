@@ -50,7 +50,7 @@ const CoinSearch = ({ coins }) => {
       {itemsToShow < coins.length && (
         <div className='text-center p-4'>
           <button
-            className='bg-primary text-white py-2 px-4 rounded-2xl shadow-xl'
+            className='bg-primary text-primary py-2 px-4 rounded-2xl shadow-xl'
             onClick={handleLoadMore}
           >
             Load More
