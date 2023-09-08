@@ -1,23 +1,27 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { auth, db } from '../firebase';
+import { createContext, useContext, useState, useEffect } from "react";
+import { auth, db } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
-} from 'firebase/auth';
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from "firebase/firestore";
 
 const UserContext = createContext();
+
+const googleProvider = new GoogleAuthProvider();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   const signUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password);
-    return setDoc(doc(db, 'users', email), {
+    return setDoc(doc(db, "users", email), {
       watchList: [],
     });
   };
@@ -30,7 +34,11 @@ export const AuthContextProvider = ({ children }) => {
   };
   const resetPassword = (email) => {
     return sendPasswordResetEmail(auth, email);
-  }
+  };
+
+  const signInWithGoogle = async () => {
+    return signInWithPopup(auth, googleProvider);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -42,7 +50,9 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ signUp, signIn, logout, resetPassword, user }}>
+    <UserContext.Provider
+      value={{ signUp, signIn, logout, resetPassword, signInWithGoogle, user }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -3,7 +3,7 @@ import { AiFillLock, AiOutlineMail } from 'react-icons/ai';
 import { FaGoogle } from "react-icons/fa"
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
-import { signInWithGoogle } from '../firebase';
+// import { signInWithGoogle } from '../firebase';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -26,17 +26,17 @@ const Signin = () => {
       }
     }
   };
-  const handleGoogleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    try {
-      await signInWithGoogle();
-      navigate('/account')
-    } catch (e) {
-      setError(e.message);
-      console.log(e);
-    }
-  };
+  // const handleGoogleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setError('');
+  //   try {
+  //     await signInWithGoogle();
+  //     navigate('/account')
+  //   } catch (e) {
+  //     setError(e.message);
+  //     console.log(e);
+  //   }
+  // };
 
   return (
     <div>
@@ -76,7 +76,7 @@ const Signin = () => {
           </button>
           {error && <p className='text-red-700'>Error: {error/*.slice(22/*, error.length - 2)*/}</p>}
         </form>
-        <p className='my-2 text-center'>
+        {/*<p className='my-2 text-center'>
           or
         </p>
         <div className='mb-4 text-center'>
@@ -84,7 +84,7 @@ const Signin = () => {
             <FaGoogle style={{marginRight: "10px"}} />
             Sign In With Google
           </button>
-        </div>
+        </div> */}
         <p className='my-4'>
           Don't have an account?{' '}
           <Link to='/signup' className='text-accent'>

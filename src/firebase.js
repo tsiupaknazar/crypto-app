@@ -12,12 +12,9 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
-
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-const googleProvider = new GoogleAuthProvider()
-export const signInWithGoogle = async () => await signInWithPopup(auth, googleProvider);
 
 export default app;
