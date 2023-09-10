@@ -1,6 +1,6 @@
 ## React Project using CoinGecko API https://www.coingecko.com/en/api/documentation
 
-Technologies: react, firebase, react-router-dom, axios, react-icons
+Technologies: react, firebase, tailwindcss, axios, react-icons
 
 # Features:
 - Light/black theme and save current theme
