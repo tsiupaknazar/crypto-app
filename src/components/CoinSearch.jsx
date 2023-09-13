@@ -3,10 +3,9 @@ import CoinItem from './CoinItem';
 
 const CoinSearch = ({ coins }) => {
   const [searchText, setSearchText] = useState('');
-  const [itemsToShow, setItemsToShow] = useState(10); // Initial number of items to show
-  const [itemsPerLoad, setItemsPerLoad] = useState(10); // Number of items to load per "Load More" click
+  const [itemsToShow, setItemsToShow] = useState(10); 
+  const [itemsPerLoad, setItemsPerLoad] = useState(10); 
 
-  // Function to handle the "Load More" button click
   const handleLoadMore = () => {
     setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerLoad);
   };
@@ -27,7 +26,6 @@ const CoinSearch = ({ coins }) => {
 
       <table className='w-full border-collapse text-center'>
         <thead>
-          {/* ... (header code) ... */}
         </thead>
         <tbody>
           {coins
@@ -40,13 +38,12 @@ const CoinSearch = ({ coins }) => {
                 return value;
               }
             })
-            .slice(0, itemsToShow) // Slice the coins array based on the number of items to show
+            .slice(0, itemsToShow) 
             .map((coin) => (
               <CoinItem key={coin.id} coin={coin} />
             ))}
         </tbody>
       </table>
-      {/* Show the "Load More" button only if there are more items to load */}
       {itemsToShow < coins.length && (
         <div className='text-center p-4'>
           <button

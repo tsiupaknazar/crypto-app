@@ -12,8 +12,6 @@ const Trending = () => {
     });
   }, []);
 
-  console.log(trending);
-
   return (
     <div className="rounded-div my-12 py-8 text-primary">
       <h1 className="text-2xl font-bold py-4">Trending Coins</h1>
