@@ -26,17 +26,6 @@ const Signin = () => {
       }
     }
   };
-  // const handleGoogleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setError('');
-  //   try {
-  //     await signInWithGoogle();
-  //     navigate('/account')
-  //   } catch (e) {
-  //     setError(e.message);
-  //     console.log(e);
-  //   }
-  // };
 
   return (
     <div>

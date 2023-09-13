@@ -10,13 +10,13 @@ import { AuthContextProvider } from "./context/AuthContext";
 import store from "./store";
 import { Provider } from "react-redux";
 
-import Home from "./routes/Home";
-import Signin from "./routes/SignIn";
-import Signup from "./routes/SignUp";
-import Account from "./routes/Account";
-import CoinPage from "./routes/CoinPage";
-import NotFoundPage from "./routes/NotFoundPage";
-import ResetPassword from "./routes/ResetPassword";
+import Home from "./pages/Home";
+import Signin from "./pages/SignIn";
+import Signup from "./pages/SignUp";
+import Account from "./pages/Account";
+import CoinPage from "./pages/CoinPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const [coins, setCoins] = useState([]);

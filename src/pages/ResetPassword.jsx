@@ -17,6 +17,9 @@ const ResetPassword = () => {
         try {
             await resetPassword(email);
             setSuccess("Email with reset link was sent. Check your inbox!")
+            setTimeout(() => {
+                navigate('/')
+            }, 3000)
         } catch (e) {
             setError(e.message);
             alert(e.message);
@@ -50,12 +53,6 @@ const ResetPassword = () => {
                     {success && <p className='text-green-500'>{success}</p>}
                     {error && <p className='text-red-700'>{error}</p>}
                 </form>
-                {/*<p className='my-4'>
-                    Don't have an account?{' '}
-                    <Link to='/signup' className='text-accent'>
-                        Sign up
-                    </Link>
-                   </p>*/}
             </div>
         </div>
     )
