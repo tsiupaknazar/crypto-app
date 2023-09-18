@@ -2,14 +2,16 @@ import React, { useState } from 'react'
 import { AiOutlineMail } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
+import {toast, ToastContainer} from "react-toastify";
 
 const ResetPassword = () => {
-
     const [email, setEmail] = useState('');
     const [success, setSuccess] = useState("");
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const { resetPassword } = UserAuth();
+
+    const notify = (message) => toast.error(message);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +24,7 @@ const ResetPassword = () => {
             }, 3000)
         } catch (e) {
             setError(e.message);
-            alert(e.message);
+            notify(e.message);
         }
     };
 
@@ -54,6 +56,7 @@ const ResetPassword = () => {
                     {error && <p className='text-red-700'>{error}</p>}
                 </form>
             </div>
+            <ToastContainer />
         </div>
     )
 }
