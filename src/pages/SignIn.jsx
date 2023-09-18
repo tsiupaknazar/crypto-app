@@ -3,6 +3,7 @@ import { AiFillLock, AiOutlineMail } from 'react-icons/ai';
 import { FaGoogle } from "react-icons/fa"
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
+import { getErrorMessage } from '../helpers/firebaseAuthErrors';
 // import { signInWithGoogle } from '../firebase';
 
 const Signin = () => {
@@ -19,11 +20,9 @@ const Signin = () => {
       await signIn(email, password);
       navigate('/account')
     } catch (e) {
-      setError(e.message);
-      if (e.message === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).") {
-        alert("Your account is temporarily blocked, please wait")
-        setError("Account temporarily blocked")
-      }
+      const errorCode = e.code;
+      const errorMessage = getErrorMessage(errorCode);
+      setError(errorMessage);
     }
   };
 
