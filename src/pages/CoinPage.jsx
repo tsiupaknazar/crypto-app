@@ -81,11 +81,11 @@ const CoinPage = () => {
             </div>
             <div>
               <p className='text-gray-500 text-sm'>Hashing Algorithm</p>
-              {coin.hashing_algorithm ? <p>{coin.hashing_algorithm}</p> : null}
+              {coin.hashing_algorithm ? <p>{coin.hashing_algorithm}</p> : "N/A"}
             </div>
             <div>
               <p className='text-gray-500 text-sm'>Trust Score</p>
-              {coin.tickers ? <p>{coin.liquidity_score.toFixed(2)}</p> : null}
+              {typeof coin.liquidity_score === "number" ? <p>{coin.liquidity_score.toFixed(2)}</p> : "N/A"}
             </div>
           </div>
 
