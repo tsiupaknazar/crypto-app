@@ -6,7 +6,7 @@ import { UserAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const { user, logout } = UserAuth();
+  const { user, logout, loading } = UserAuth();
   const navigate = useNavigate();
 
   const handleNav = () => {
@@ -27,6 +27,12 @@ const Navbar = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="rounded-div h-20 flex items-center justify-between"></div>
+    );
+  }
+
   return (
     <div className='rounded-div flex items-center justify-between h-20 font-bold'>
       <Link to='/'>
@@ -38,10 +44,13 @@ const Navbar = () => {
 
       {user?.email ? (
         <div className='hidden md:block'>
+          <Link to='/crypto-news' className='p-4'>
+            News
+          </Link>
           <Link to='/account' className='p-4'>
             Account
           </Link>
-          <button onClick={handleSignOut}>Sign out</button>
+          {/* <button onClick={handleSignOut}>Sign out</button> */}
         </div>
       ) : (
         <div className='hidden md:block'>

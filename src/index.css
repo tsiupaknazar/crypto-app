@@ -20,8 +20,8 @@
 
 .dark {
   --color-bg-primary: #2d3748;
-  --color-bg-primary: #2d3748;
   --color-bg-secondary: #283141;
+  --color-bg-accent: #3c4a64;
   --color-text-primary: #dbdbdb;
   --color-text-secondary: #e2e8f0;
   --color-text-accent: #81e6d9;
@@ -32,6 +32,7 @@
 .light {
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #edf2f7;
+  --color-bg-accent: #bfbfc0;
   --color-text-primary: #2d3748;
   --color-text-secondary: #4a5568;
   --color-text-accent: #2b6cb0;

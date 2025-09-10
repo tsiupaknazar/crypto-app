@@ -15,6 +15,7 @@ const CoinPage = () => {
   useEffect(() => {
     axios.get(url).then((response) => {
       setCoin(response.data);
+      console.log(response.data);
     });
   }, [url]);
 
@@ -149,7 +150,7 @@ const CoinPage = () => {
       {/* Description */}
       <div className='py-4'>
         <p className='text-xl font-bold'>About {coin.name}</p>
-        <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(coin.description ? coin.description.en : ''),}} ></p>
+        <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(coin.description ? coin.description.en : 'No description provided'),}} ></p>
       </div>
     </div>
   );
