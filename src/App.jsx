@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import axios from "axios";
 import { CirclesWithBar } from "react-loader-spinner";
 
 import Navbar from "./components/Navbar";
@@ -18,28 +17,16 @@ import CoinPage from "./pages/CoinPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPassword from "./pages/ResetPassword";
 import NewsPage from "./pages/NewsPage";
+import { useAPI } from "./hooks/useAPI";
 
 function App() {
-  const [coins, setCoins] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const {data, loading, error} = useAPI("coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=true");
+
+  // if (loading) return <p>Loading...</p>;
+  if (error) alert(`Error: ${error.message}`);
 
   const connection = navigator.onLine;
 
-  const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=true";
-
-  useEffect(() => {
-    axios.get(url).then((response) => {
-      try {
-        setCoins(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    });
-    // setLoading(false);
-  }, [url]);
   return (
     <Provider store={store}>
       <AuthContextProvider>
@@ -47,7 +34,7 @@ function App() {
           <>
             <Navbar />
             <Routes>
-              <Route path="/" element={<Home coins={coins} />} />
+              <Route path="/" element={<Home coins={data} />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/account" element={<Account />} />
