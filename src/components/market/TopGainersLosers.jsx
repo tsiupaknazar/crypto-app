@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useAPI } from "../hooks/useAPI";
+import { useAPI } from "../../hooks/useAPI";
 
 const TopGainersLosers = () => {
   const { data, loading, error } = useAPI("coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=true");
 
-  // if (loading) return <p className="text-center">Loading...</p>;
+  if (loading) return <p className="text-center">Loading...</p>;
+  // if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
   // Sort by 24h % change
   const sorted = data.sort(
@@ -15,9 +16,6 @@ const TopGainersLosers = () => {
 
   const topGainers = sorted.slice(0, 10);
   const topLosers = sorted.slice(-10).reverse();
-
-  // console.log("Top Gainers:", topGainers);
-  // console.log("Top Losers:", topLosers);
 
   return (
     <div className="flex flex-col gap-6">

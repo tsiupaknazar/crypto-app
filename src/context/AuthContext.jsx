@@ -24,11 +24,12 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const signUp = async (email, password) => {
+  const signUp = async (email, password, name) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const uid = res.user.uid;
 
     await setDoc(doc(db, "users", uid), {
+      name,
       email: res.user.email,
       watchList: [],
       createdAt: Date.now(),
@@ -97,8 +98,18 @@ export const AuthContextProvider = ({ children }) => {
 
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          setUser({ ...currentUser, ...userSnap.data() });
+        } else {
+          setUser(currentUser);
+        }
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
     return () => {

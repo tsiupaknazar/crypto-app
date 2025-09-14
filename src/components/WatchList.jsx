@@ -5,7 +5,7 @@ import { db } from "../firebase";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { Sparklines, SparklinesLine, SparklinesSpots } from "react-sparklines";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { WatchListSkeleton } from "./WatchListSkeleton";
+import { WatchListSkeleton } from "./skeletons/WatchListSkeleton";
 
 export default function WatchList() {
   const [coins, setCoins] = useState([]);

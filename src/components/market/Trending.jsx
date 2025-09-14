@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import { useAPI } from "../hooks/useAPI";
+import { useAPI } from "../../hooks/useAPI";
 
 const Trending = () => {
   const { data, loading, error } = useAPI('search/trending');

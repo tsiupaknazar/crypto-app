@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Trending from "../components/Trending";
-import TopGainersLosers from '../components/TopGainersLosers';
+import Trending from "../components/market/Trending";
+import TopGainersLosers from '../components/market/TopGainersLosers';
 
 const Stats = () => {
     return (
