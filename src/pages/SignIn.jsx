@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { AiFillLock, AiOutlineMail } from 'react-icons/ai';
-import { FaGoogle } from "react-icons/fa"
+import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa"
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import { getErrorMessage } from '../helpers/firebaseAuthErrors';
-// import { signInWithGoogle } from '../firebase';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { signIn } = UserAuth();
+  const { signIn, signInWithGoogle, signInWithGithub, signInWithFacebook } = UserAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +24,17 @@ const Signin = () => {
       setError(errorMessage);
     }
   };
+
+  const handleProviderSignIn = async (providerFn, label) => {
+    setError('');
+    try {
+      await providerFn();
+      navigate('/account');
+    } catch (error) {
+      setError(`${label} sign-in failed: ${error.message}`);
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -64,15 +74,32 @@ const Signin = () => {
           </button>
           {error && <p className='text-red-700'>Error: {error/*.slice(22/*, error.length - 2)*/}</p>}
         </form>
-        {/*<p className='my-2 text-center'>
-          or
+        <p className='my-2 text-center'>
+          or sign in with
         </p>
-        <div className='mb-4 text-center'>
-          <button className="flex items-center justify-center w-full p-4 bg-button text-btnText font-[500] rounded-2xl" onClick={handleGoogleSubmit}>
-            <FaGoogle style={{marginRight: "10px"}} />
-            Sign In With Google
+        <div className='flex items-center justify-between mb-4 text-center gap-5'>
+          <button
+            className="flex items-center justify-center w-[50%] p-4 bg-button text-btnText font-[500] rounded-2xl"
+            onClick={() => handleProviderSignIn(signInWithGoogle, "Google")}
+          >
+            <FaGoogle />
+            {/* Sign In With Google */}
           </button>
-        </div> */}
+          <button
+            className="flex items-center justify-center w-[50%] p-4 bg-button text-btnText font-[500] rounded-2xl"
+            onClick={() => handleProviderSignIn(signInWithGithub, "Github")}
+          >
+            <FaGithub />
+            {/* Sign In With Github */}
+          </button>
+          <button
+            className="flex items-center justify-center w-[50%] p-4 bg-button text-btnText font-[500] rounded-2xl"
+            onClick={() => handleProviderSignIn(signInWithFacebook, "Facebook")}
+          >
+            <FaFacebook />
+            {/* Sign In With Github */}
+          </button>
+        </div>
         <p className='my-4'>
           Don't have an account?{' '}
           <Link to='/signup' className='text-accent'>

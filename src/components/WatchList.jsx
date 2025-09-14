@@ -13,13 +13,13 @@ export default function WatchList() {
 
   useEffect(() => {
     if (!user?.email) return;
-    const unsub = onSnapshot(doc(db, "users", `${user?.email}`), (docSnap) => {
+    const unsub = onSnapshot(doc(db, "users", `${user?.uid}`), (docSnap) => {
       setCoins(docSnap.data()?.watchList || []);
     });
     return () => unsub();
-  }, [user?.email]);
+  }, [user?.uid]);
 
-  const coinPath = doc(db, "users", `${user?.email}`);
+  const coinPath = doc(db, "users", `${user?.uid}`);
 
   const deleteCoin = async (id) => {
     try {

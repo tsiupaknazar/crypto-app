@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 function useSavedCoin(coin, user) {
   const [savedCoin, setSavedCoin] = useState(false);
-  const coinPath = doc(db, "users", `${user?.email}`);
+  const coinPath = doc(db, "users", `${user?.uid}`);
 
   useEffect(() => {
     const fetchWatchList = async () => {
@@ -57,9 +57,9 @@ function useSavedCoin(coin, user) {
           sparkline_7d: coin?.sparkline_in_7d.price,
         }),
       });
-      toast.info("Coin removed from watchlist");
+      toast.info("Coin removed from watchlist", { toastId: "save-coin" });
     } else {
-      toast.info("Please sign in to remove coins");
+      toast.info("Please sign in to remove coins", { toastId: "remove-coin" });
     }
   };
 

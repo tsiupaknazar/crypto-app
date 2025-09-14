@@ -16,8 +16,8 @@ const TopGainersLosers = () => {
   const topGainers = sorted.slice(0, 10);
   const topLosers = sorted.slice(-10).reverse();
 
-  console.log("Top Gainers:", topGainers);
-  console.log("Top Losers:", topLosers);
+  // console.log("Top Gainers:", topGainers);
+  // console.log("Top Losers:", topLosers);
 
   return (
     <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
