@@ -44,6 +44,9 @@ const Navbar = () => {
 
       {user?.email ? (
         <div className='hidden md:block'>
+          <Link to='/stats' className='p-4'>
+            Stats
+          </Link>
           <Link to='/crypto-news' className='p-4'>
             News
           </Link>
@@ -82,6 +85,12 @@ const Navbar = () => {
         <ul className='w-full p-4'>
           <li onClick={handleNav} className='border-b py-6'>
             <Link to='/'>Home</Link>
+          </li>
+          <li onClick={handleNav} className='border-b py-6'>
+            <Link to='/stats'>Stats</Link>
+          </li>
+          <li onClick={handleNav} className='border-b py-6'>
+            <Link to='/crypto-news'>News</Link>
           </li>
           <li onClick={handleNav} className='border-b py-6'>
             <Link to='/account'>Account</Link>

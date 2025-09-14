@@ -5,7 +5,7 @@ import { Sparklines, SparklinesLine } from "react-sparklines";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 import { arrayUnion, arrayRemove, doc, updateDoc, getDoc } from "firebase/firestore";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function useSavedCoin(coin, user) {
   const [savedCoin, setSavedCoin] = useState(false);
@@ -13,17 +13,17 @@ function useSavedCoin(coin, user) {
 
   useEffect(() => {
     const fetchWatchList = async () => {
-      if (user?.email) {
+      if (user?.uid) {
         const docSnap = await getDoc(coinPath);
         const data = docSnap.data();
         setSavedCoin(data?.watchList?.some((item) => item.id === coin.id) || false);
       }
     };
     fetchWatchList();
-  }, [user?.email, coin.id]);
+  }, [user?.uid, coin.id]);
 
   const saveCoin = async () => {
-    if (user?.email) {
+    if (user?.uid) {
       setSavedCoin(true);
       await updateDoc(coinPath, {
         watchList: arrayUnion({
@@ -43,7 +43,7 @@ function useSavedCoin(coin, user) {
   };
 
   const deleteCoin = async () => {
-    if (user?.email) {
+    if (user?.uid) {
       setSavedCoin(false);
       await updateDoc(coinPath, {
         watchList: arrayRemove({
@@ -57,9 +57,7 @@ function useSavedCoin(coin, user) {
           sparkline_7d: coin?.sparkline_in_7d.price,
         }),
       });
-      toast.info("Coin removed from watchlist", { toastId: "save-coin" });
-    } else {
-      toast.info("Please sign in to remove coins", { toastId: "remove-coin" });
+      toast.info("Coin removed from watchlist", { toastId: `remove-${coin.id}` });
     }
   };
 
@@ -118,7 +116,6 @@ const CoinItem = ({ coin }) => {
           </Sparklines>
         </td>
       </tr>
-      <ToastContainer />
     </>
   );
 };

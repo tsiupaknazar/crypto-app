@@ -5,16 +5,20 @@ import { db } from "../firebase";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { Sparklines, SparklinesLine, SparklinesSpots } from "react-sparklines";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { WatchListSkeleton } from "./WatchListSkeleton";
 
 export default function WatchList() {
   const [coins, setCoins] = useState([]);
+  const [coinsLoading, setCoinsLoading] = useState(true);
   const [view, setView] = useLocalStorage("watchlist-view", "table");
-  const { user } = UserAuth();
+  const { user, loading } = UserAuth();
 
   useEffect(() => {
-    if (!user?.email) return;
+    if (!user?.uid) return;
+    setCoinsLoading(true);
     const unsub = onSnapshot(doc(db, "users", `${user?.uid}`), (docSnap) => {
       setCoins(docSnap.data()?.watchList || []);
+      setCoinsLoading(false);
     });
     return () => unsub();
   }, [user?.uid]);
@@ -30,7 +34,11 @@ export default function WatchList() {
     }
   };
 
-  console.log(coins);
+  if (loading || coinsLoading) {
+    return (
+        <WatchListSkeleton view={view} count={5} />
+    )
+  }
 
   return (
     <div className="p-6 bg-primary rounded-div min-h-screen">
@@ -40,15 +48,13 @@ export default function WatchList() {
         <div className="flex gap-2">
           <button
             onClick={() => setView("table")}
-            className={`p-2 rounded-xl ${view === "table" ? "bg-slate-700" : "bg-slate-800"
-              }`}
+            className='p-2 rounded-xl bg-secondary'
           >
             <List className="text-primary" size={20} />
           </button>
           <button
             onClick={() => setView("grid")}
-            className={`p-2 rounded-xl ${view === "grid" ? "bg-slate-700" : "bg-slate-800"
-              }`}
+            className='p-2 rounded-xl bg-secondary'
           >
             <Grid size={20} />
           </button>

@@ -9,6 +9,8 @@ import { AuthContextProvider } from "./context/AuthContext";
 import store from "./store";
 import { Provider } from "react-redux";
 
+import { ToastContainer } from "react-toastify";
+
 import Home from "./pages/Home";
 import Signin from "./pages/SignIn";
 import Signup from "./pages/SignUp";
@@ -17,13 +19,15 @@ import CoinPage from "./pages/CoinPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPassword from "./pages/ResetPassword";
 import NewsPage from "./pages/NewsPage";
+import Stats from "./pages/Stats";
+
 import { useAPI } from "./hooks/useAPI";
 
 function App() {
-  const {data, loading, error} = useAPI("coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=true");
+  const { data, loading, error } = useAPI("coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=true");
 
   // if (loading) return <p>Loading...</p>;
-  if (error) alert(`Error: ${error.message}`);
+  // if (error) alert(`Error: ${error.message}`);
 
   const connection = navigator.onLine;
 
@@ -39,6 +43,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/account" element={<Account />} />
               <Route path="/crypto-news" element={<NewsPage />} />
+              <Route path="/stats" element={<Stats />} />
               <Route path="/coin/:coinId" element={<CoinPage />}>
                 <Route path=":coinId" />
               </Route>
@@ -53,6 +58,7 @@ function App() {
           </div>
         )}
       </AuthContextProvider>
+      <ToastContainer />
     </Provider>
   );
 }
