@@ -24,20 +24,45 @@ const NewsPage = () => {
             <div className="mt-6">
                 {loading && Array.from({ length: 5 }).map((_, i) => <NewsSkeleton key={i} />)}
                 {news.slice(0, 10).map((article) => (
-                    <div key={article.article_id} className="mb-4 p-4 border border-gray-700 rounded-lg hover:bg-secondary transition duration-300 flex items-center gap-12">
-                        {article.image_url === null ? <img src={cryptoImg} alt="News Image Placeholder" className="w-40" /> : <img src={article.image_url} alt={article.title} className="w-40" />}
+                    <div
+                        key={article.article_id}
+                        className="mb-4 p-4 border border-gray-700 rounded-lg hover:bg-secondary transition duration-300 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-12"
+                    >
+                        {article.image_url === null ? (
+                            <img
+                                src={cryptoImg}
+                                alt="News Image Placeholder"
+                                className="w-full sm:w-40 h-40 object-cover rounded-md"
+                            />
+                        ) : (
+                            <img
+                                src={article.image_url}
+                                alt={article.title}
+                                className="w-full sm:w-40 h-40 object-cover rounded-md"
+                            />
+                        )}
                         <span className="w-full">
-                            <h2 className="font-bold text-lg">{article.title}</h2>
-                            <p>{article.description.slice(0, 150)}...</p>
-                            {/*description, link, creator*/}
-                            <span className="flex items-center justify-between mt-2">
-                                <p>By <span className="text-sm underline">{article.creator ? article.creator : "Unknown"}</span></p>
-                                <button className="bg-button text-btnText px-4 py-2 rounded-lg shadow-lg">
-                                    <a className="" href={article.link} target="_blank">Read full</a>
+                            <h2 className="font-bold text-base sm:text-lg line-clamp-2">{article.title}</h2>
+                            <p className="text-sm sm:text-base mt-1">
+                                {article.description.slice(0, 150)}...
+                            </p>
+
+                            <span className="flex flex-col sm:flex-row sm:items-center justify-between mt-3 gap-3 sm:gap-0">
+                                <p className="text-sm">
+                                    By{" "}
+                                    <span className="text-sm underline">
+                                        {article.creator ? article.creator : "Unknown"}
+                                    </span>
+                                </p>
+                                <button className="bg-button text-btnText px-4 py-2 rounded-lg shadow-md text-sm sm:text-base w-full sm:w-auto">
+                                    <a href={article.link} target="_blank" rel="noreferrer">
+                                        Read full
+                                    </a>
                                 </button>
                             </span>
                         </span>
                     </div>
+
                 ))}
             </div>
         </div>

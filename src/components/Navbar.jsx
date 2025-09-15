@@ -92,14 +92,16 @@ const Navbar = () => {
           <li onClick={handleNav} className='border-b py-6'>
             <Link to='/crypto-news'>News</Link>
           </li>
-          <li onClick={handleNav} className='border-b py-6'>
-            <Link to='/account'>Account</Link>
-          </li>
+          {user?.uid && (
+            <li onClick={handleNav} className='border-b py-6'>
+              <Link to='/account'>Account</Link>
+            </li>
+          )}
           <li className=' py-6'>
             <ThemeToggle />
           </li>
         </ul>
-        {user?.email ? (
+        {user?.uid ? (
           <button onClick={handleSignOut} className='w-full my-2 p-3 bg-button text-btnText rounded-2xl shadow-xl'>
             Sign Out
           </button>
